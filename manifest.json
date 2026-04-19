@@ -1,15 +1,24 @@
 {
-  "short_name": "Aman",
-  "name": "Aychew Portfolio",
+  "short_name": "Aychew",
+  "name": "Aychew Portfolio: ECE & Dev",
+  "description": "Portfolio of Aychew Misganew - ECE Engineer and Web Developer",
   "icons": [
     {
       "src": "https://via.placeholder.com/192x192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://via.placeholder.com/512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/PersonalPortfolio/index.html",
   "background_color": "#0a0a0f",
   "display": "standalone",
+  "scope": "/PersonalPortfolio/",
   "theme_color": "#00e5a0"
 }
