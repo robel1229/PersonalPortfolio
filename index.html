@@ -966,9 +966,18 @@
 
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdmZXRjaCcsIGZ1bmN0aW9uKGV2ZW50KSB7IH0pOw==');
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(registration => {
+          console.log('SW registered with scope:', registration.scope);
+        })
+        .catch(err => {
+          console.log('SW registration failed:', err);
+        });
+    });
   }
 </script>
+
 
 </body>
 </html>
