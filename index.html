@@ -523,7 +523,46 @@
       transition: transform 0.1s linear;
     }
   
-  footer { border-top: 1px solid var(--border); padding: 3rem 5%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--muted); font-size: 0.75rem; text-align: center; gap: 1rem; }
+  footer { border-top: 1px solid var(--border); 
+          padding: 3rem 5%; 
+          display: flex; 
+          flex-direction: column; 
+          justify-content: center; 
+          align-items: center; 
+          color: var(--muted); 
+          font-size: 0.75rem; 
+          text-align: center; 
+          gap: 1rem; 
+    }
+
+  /* Custom Popup (Toast) Styling */
+.toast-msg {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(19, 19, 28, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  padding: 0.8rem 1.8rem;
+  border-radius: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.toast-msg.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
   </style>
 </head>
 <body>
@@ -699,24 +738,6 @@
       <div class="section-label">// selected work</div>
       <h2 class="section-title">Projects I've<br>Built</h2>
     </div>
-    <div class="projects-grid">
-      <div class="project-card reveal">
-        <div class="project-thumb" style="background: linear-gradient(135deg,#0d1b2a,#1b4332);">🗄️</div>
-        <div class="project-body">
-          <div class="project-type">Database System</div>
-          <div class="project-title">Student Records Database</div>
-          <div class="project-desc">A relational database system for managing student records, grades, and enrollment — designed with normalization and optimized queries.</div>
-          <div class="project-footer">
-            <div class="project-stack">
-              <span class="tag">MySQL</span>
-              <span class="tag">SQL</span>
-               <span class="tag">Php</span>
-            </div>
-            <a href="#" class="project-link">View →</a>
-          </div>
-        </div>
-      </div>
-      
       <div class="project-card reveal">
         <div class="project-thumb" style="background: linear-gradient(135deg,#4a148c,#7c6bff);">🍽️</div>
         <div class="project-body">
@@ -736,8 +757,24 @@
           </div>
         </div>
       </div>
-          
-             <div class="project-card reveal">
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-thumb" style="background: linear-gradient(135deg,#0d1b2a,#1b4332);">🗄️</div>
+        <div class="project-body">
+          <div class="project-type">Database System</div>
+          <div class="project-title">Student Records Database</div>
+          <div class="project-desc">A relational database system for managing student records, grades, and enrollment — designed with normalization and optimized queries.</div>
+          <div class="project-footer">
+            <div class="project-stack">
+              <span class="tag">MySQL</span>
+              <span class="tag">SQL</span>
+               <span class="tag">Php</span>
+            </div>
+            <a href="javascript:void(0)" class="project-link" onclick="showNotification('private')">View →</a>
+          </div>
+        </div>
+      </div>
+       <div class="project-card reveal">
         <div class="project-thumb" style="background: linear-gradient(135deg,#004d40,#00e5a0);">📈</div>
         <div class="project-body">
           <div class="project-type">Academic Tool</div>
@@ -763,7 +800,7 @@
               <span class="tag">JS</span>
               <span class="tag">PHP</span>
             </div>
-            <a href="#" class="project-link">View →</a>
+            <a href="javascript:void(0)" class="project-link" onclick="showNotification('university')">View →</a>
           </div>
         </div>
       </div>
@@ -778,7 +815,7 @@
               <span class="tag">Arduino</span>
               <span class="tag">C++</span>
             </div>
-            <a href="#" class="project-link">View →</a>
+            <a href="javascript:void(0)" class="project-link" onclick="showNotification('review')">View →</a>
           </div>
         </div>
       </div>
@@ -874,6 +911,49 @@
         a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
       });
     });
+
+    //show notification if the project is not published
+  
+  function showNotification(type) {
+  const toast = document.getElementById('toast');
+  const toastText = toast.querySelector('.toast-content'); // We will add this span in the next step
+  
+  let message = "";
+  let prefix = "//NOTICE:";
+
+  switch(type) {
+    case 'university':
+      prefix = "//UNIVERSITY:";
+      message = "This is deployed on the internal university network. I will inform When publish officially";
+      break;
+    case 'private':
+      prefix = "//PRIVATE:";
+      message = "Source code is restricted. I will post to GitHub ASAP!";
+      break;
+    case 'review':
+      prefix = "//REVIEW:";
+      message = "Finalizing documentation and security patches before public release.";
+      break;
+    default:
+      message = "This project details will be available shortly.";
+  }
+
+  // Update the toast content
+  toast.querySelector('.toast-accent').textContent = prefix;
+  toastText.textContent = message;
+
+  // Show the toast
+  toast.classList.add('show');
+  
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 4000);
+}
+
   </script>
+  <div id="toast" class="toast-msg">
+  <span class="toast-accent">//NOTICE:</span> 
+  <span class="toast-content">Default message text.</span>
+</div>
 </body>
 </html>
