@@ -1,4 +1,4 @@
-const CACHE_NAME = 'portfolio-v1.1'; // BUMP THIS VERSION EVERY TIME YOU EDIT HTML
+const CACHE_NAME = 'portfolio-v1.2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
